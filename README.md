@@ -1,4 +1,4 @@
-# Nagios-XI 5.5.6 RCE
+# Nagios-XI 5.5.6 RFI to RCE
 
     Usage: nagiosIX_rce.py [options]
 
