@@ -1,1 +1,1 @@
-# Nagios-XI-5.5.6-RCE-
+# Nagios-XI 5.5.6 RCE
