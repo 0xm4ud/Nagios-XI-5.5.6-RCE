@@ -3,8 +3,6 @@
 # Date: 2021-05-12
 # Exploit Author: (m4ud)
 # Vendor Homepage: https://www.nagios.com/
-# Product: Nagios XI
-# Version: From 2012r1.0 to 5.5.6
 # Tested on: 
 #   - Ubuntu Linux 16.04, 18.04, 20.04
 #   - CentOS Linux 7.5.1804 (Core) / Kernel 3.10.0
