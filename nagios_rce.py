@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+# Exploit Title: Nagios-XI 5.5.6 RCE
+# Exploit Author: (m4ud)
+
 import http.server
 import ssl
 import sys
